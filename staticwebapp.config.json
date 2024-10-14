@@ -1,0 +1,9 @@
+{
+  "trailingSlash": "auto",
+  "routes": [
+    {
+      "route": "/dogs",
+      "redirect": "https://dog-api.kinduff.com/api/facts"
+    }
+  ]
+}
