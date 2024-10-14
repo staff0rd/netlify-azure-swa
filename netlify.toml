@@ -1,0 +1,5 @@
+[[redirects]]
+  force = true
+  from = "/dogs"
+  status = 200
+  to = "http://dog-api.kinduff.com/api/facts"
