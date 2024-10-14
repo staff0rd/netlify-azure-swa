@@ -4,8 +4,26 @@ import "./App.css";
 import useFetch from "react-fetch-hook";
 import ReactLoading from "react-loading";
 
+function NetlifyFunction() {
+  const { isLoading, data } = useFetch<{ message: string }>(
+    "/.netlify/functions/hello-world"
+  );
+  return (
+    <div className="flex justify-center mt-8">
+      {isLoading ? (
+        <ReactLoading type="bubbles" />
+      ) : (
+        <span className="max-w-96">From netlify function: {data?.message}</span>
+      )}
+    </div>
+  );
+}
+
 function App() {
   const { isLoading, data } = useFetch<{ facts: string[] }>("/dogs");
+  const isNetlify =
+    window.location.hostname.includes("netlify") ||
+    window.location.hostname.includes("localhost");
 
   return (
     <>
@@ -25,6 +43,8 @@ function App() {
           <span className="max-w-96">{data?.facts[0]}</span>
         )}
       </div>
+
+      {isNetlify ? <NetlifyFunction /> : <></>}
     </>
   );
 }
