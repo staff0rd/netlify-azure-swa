@@ -19,11 +19,24 @@ function NetlifyFunction() {
   );
 }
 
+function AzureFunction() {
+  const { isLoading, data } = useFetch<{ message: string }>("/api/hello-world");
+  return (
+    <div className="flex justify-center mt-8">
+      {isLoading ? (
+        <ReactLoading type="bubbles" />
+      ) : (
+        <span className="max-w-96">From azure function: {data?.message}</span>
+      )}
+    </div>
+  );
+}
+
 function App() {
   const { isLoading, data } = useFetch<{ facts: string[] }>("/dogs");
   const isNetlify =
     window.location.hostname.includes("netlify") ||
-    window.location.hostname.includes("localhost");
+    window.location.host.includes("8888");
 
   return (
     <>
@@ -44,7 +57,7 @@ function App() {
         )}
       </div>
 
-      {isNetlify ? <NetlifyFunction /> : <></>}
+      {isNetlify ? <NetlifyFunction /> : <AzureFunction />}
     </>
   );
 }
